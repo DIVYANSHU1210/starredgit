@@ -2,27 +2,26 @@ import React, { useState } from "react";
 
 import { Typography, Card, CardContent, CardMedia } from "@mui/material";
 
-import useStyles from "../style";
+import { StyledFlex, StyledCard, StyledSmallCard, StyledCardMedia } from "../style";
 import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import Charts from "./Charts";
 
+
 function GitCard({repoName, img, desc, stars, issues, pushedAt, ownerName}) {
-  // console.log(repoName,ownerName)
-  const classes = useStyles();
+
   const [drop, setDrop] = useState(false);
   const token = "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";
 
   return (
     <div>
-      <Card className={classes.card}>
-        <CardMedia
+      <StyledCard>
+        <StyledCardMedia
           image={img}
           title="profileImage"
-          className={classes.cardImage}
         />
         <CardContent>
-          <div className={classes.flex}>
+          <StyledFlex>
             <div>
               <Typography variant="h4" color="textPrimary">
                 {repoName}
@@ -30,36 +29,33 @@ function GitCard({repoName, img, desc, stars, issues, pushedAt, ownerName}) {
               <Typography variant="p" color="textSecondary" paragraph>
                 {desc}
               </Typography>
-              <div className={classes.flex}>
-                <Typography variant="p" className={classes.smallcard}>
+              <StyledFlex>
+                <StyledSmallCard variant="p">
                   {stars} stars
-                </Typography>
-                <Typography variant="p" className={classes.smallcard}>
+                </StyledSmallCard>
+                <StyledSmallCard variant="p">
                   {issues} issues
-                </Typography>
+                </StyledSmallCard>
                 <Typography
                   variant="p"
                   color="textprimary"
-                  className={classes.ownerInfo}
                 >
                   Last pushed {pushedAt} by {ownerName}
                 </Typography>
-              </div>
+              </StyledFlex>
             </div>
             {drop === false ? (
               <ArrowRightIcon
                 onClick={() => setDrop(!drop)}
-                className={classes.drop}
               />
             ) : (
               <ArrowDropDownIcon
                 onClick={() => setDrop(!drop)}
-                className={classes.drop}
               />
             )}
-          </div>
+          </StyledFlex>
         </CardContent>
-      </Card>
+      </StyledCard>
 
       {drop === true ? (<Charts token={token} repoName={repoName}  ownerName={ownerName}/>) : <></>}
     </div>

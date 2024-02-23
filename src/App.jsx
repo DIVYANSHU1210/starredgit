@@ -9,14 +9,12 @@ import {
 } from "@mui/material";
 
 import StarHalfIcon from '@mui/icons-material/StarHalf';
-import useStyles from "./style";
 
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import GitCard from "./Components/GitCard";
 
 function App() {
-  const classes = useStyles();
 
   const [repoList,setRepoList]  = useState([]); 
 
@@ -32,7 +30,7 @@ function App() {
     <>
       <CssBaseline />
       <AppBar position="sticky" > 
-        <Toolbar className={classes.appbar}>
+        <Toolbar>
           <StarHalfIcon/>
           <Typography variant="h5">Starred Repos</Typography>
         </Toolbar>
