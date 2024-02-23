@@ -7,19 +7,23 @@ import { Octokit } from "@octokit/core";
 
 
 function Charts({ token, repoName, ownerName }) {
+    console.log(token,repoName, ownerName );
   const [commitData, setCommitData] = useState([]);
   const [addDelData, setAddDelData] = useState([]);
+
+  const [chart, setChart] = useState("commits");
+
 
   const octokit = new Octokit({
     auth: token,
   });
 
-  const [chart, setChart] = useState("commits");
+ 
   // Function to fetch commit activity data
   const fetchCommitData = async () => {
     try {
       const response = await octokit.request(
-        "GET /repos/{owner}/{repo}/stats/participation",
+        "GET /repos/{owner}/{repo}/stats/commit_activity",
         {
           owner: ownerName,
           repo: repoName,
@@ -28,7 +32,7 @@ function Charts({ token, repoName, ownerName }) {
           },
         }
       );
-      console.log(response.data);
+      console.log("commit data", response.data);
       setCommitData(response.data);
     } catch (error) {
       console.error("Error fetching commit activity data:", error);
@@ -38,7 +42,7 @@ function Charts({ token, repoName, ownerName }) {
   const fetchAddDelData = async () => {
     try {
       const response = await octokit.request(
-        "GET /repos/{owner}/{repo}/stats/code_frequency",
+        'GET /repos/{owner}/{repo}/stats/code_frequency',
         {
           owner: ownerName,
           repo: repoName,
@@ -47,33 +51,34 @@ function Charts({ token, repoName, ownerName }) {
           },
         }
       );
-      console.log(response.data);
+    //   console.log(response.data);
       setAddDelData(response.data);
     } catch (error) {
       console.error("Error fetching addition-deletion data:", error);
     }
   };
 
-  console.log("is array", Array.isArray(commitData));
+//   console.log("is array", Array.isArray(commitData));
+//   console.log("is array", Array.isArray(addDelData));
 
-  const seriesDataCommit = [1, 8, 3, 5, 5];
+//   const seriesDataCommit = [1, 8, 3, 5, 5];
 
-  const seriesDataAdd = Array.isArray(addDelData)
-    ? addDelData
-        .slice(0, 3)
-        .map(([timestamp, additions, deletions]) => [
-          timestamp * 1000,
-          additions,
-        ])
-    : [];
-  const seriesDataDel = Array.isArray(addDelData)
-    ? addDelData
-        .slice(0, 3)
-        .map(([timestamp, additions, deletions]) => [
-          timestamp * 1000,
-          deletions,
-        ])
-    : [];
+//   const seriesDataAdd = Array.isArray(addDelData)
+//     ? addDelData
+//         .slice(0, 3)
+//         .map(([timestamp, additions, deletions]) => [
+//           timestamp * 1000,
+//           additions,
+//         ])
+//     : [];
+//   const seriesDataDel = Array.isArray(addDelData)
+//     ? addDelData
+//         .slice(0, 3)
+//         .map(([timestamp, additions, deletions]) => [
+//           timestamp * 1000,
+//           deletions,
+//         ])
+//     : [];
 
   // let seriesData = [];
   // if (Array.isArray(commitData)) {
@@ -91,7 +96,7 @@ function Charts({ token, repoName, ownerName }) {
   //   console.error("commitData is not an array");
   // }
 
-  //   console.log(seriesData);
+
   useEffect(() => {
     fetchCommitData();
     fetchAddDelData();
@@ -105,9 +110,9 @@ function Charts({ token, repoName, ownerName }) {
       series: [
         {
           data: Array.isArray(commitData)
-            ? commitData.map(([timestamp, commits, deletions]) => [
+            ? addDelData.slice(0,3).map(([timestamp, additions, deletions]) => [
                 timestamp * 1000,
-                commits,
+                deletions,
               ])
             : [],
         },
@@ -141,13 +146,15 @@ function Charts({ token, repoName, ownerName }) {
                 .slice(0, 3)
                 .map(([timestamp, additions, deletions]) => [
                   timestamp * 1000,
-                  deletions,
+                  deletions*-1,
                 ])
             : [],
         },
       ],
     },
   };
+
+  
 
   return (
     <Card>

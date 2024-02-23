@@ -11,7 +11,7 @@ function GitCard({repoName, img, desc, stars, issues, pushedAt, ownerName}) {
   // console.log(repoName,ownerName)
   const classes = useStyles();
   const [drop, setDrop] = useState(false);
-  const token = "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";
+  const token = "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";
 
   return (
     <div>
