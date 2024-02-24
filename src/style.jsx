@@ -1,20 +1,12 @@
 import React from 'react';
 import styled from '@emotion/styled';
 
-// Update dependencies:
-// - Remove `@mui/styles`
-// - Install `@emotion/react`
 
 export const StyledToolBar = styled('div')({
   backgroundColor: "#212121",
 });
 
-// export const StyledCardMedia = styled('img')({
-//   minWidth: "150px",
-//   minHeight: "150px",
-//   margin: "1rem",
-//   borderRadius: "50%",
-// });
+
 export const StyledDiv = styled('div')({
   marginBlock:"3rem",
 });

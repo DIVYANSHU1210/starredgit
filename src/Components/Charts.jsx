@@ -8,18 +8,21 @@ import { Octokit } from "@octokit/core";
 
 function Charts({ token, repoName, ownerName }) {
     console.log(token,repoName, ownerName );
+
+  // State variables for data, page, and selected chart
   const [page, setPage] = useState(1);
   const [commitData, setCommitData] = useState([]);
   const [addDelData, setAddDelData] = useState([]);
-
   const [chart, setChart] = useState("commits");
+
   const pageSize = 4; 
 
+  // Create Octokit instance with authentication
   const octokit = new Octokit({
     auth: token,
   });
 
-  
+
   // Function to fetch commit activity data
   const fetchCommitData = async () => {
     try {
@@ -40,6 +43,8 @@ function Charts({ token, repoName, ownerName }) {
     }
   };
 
+
+  // Function to fetch Addition and deletion data
   const fetchAddDelData = async () => {
     try {
       const response = await octokit.request(
@@ -60,12 +65,14 @@ function Charts({ token, repoName, ownerName }) {
   };
 
 
-
+  // Fetch data on component mount and when repo or owner changes
   useEffect(() => {
     fetchCommitData();
     fetchAddDelData();
   }, [repoName, ownerName]);
 
+
+    // Highcharts chart options for each data type{commit || additions || deletions}
   const options = {
     commits: {
       title: {
@@ -154,7 +161,6 @@ function Charts({ token, repoName, ownerName }) {
     <Card>
       <CardContent>
         <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
-          {/* <InputLabel id="demo-simple-select-label"></InputLabel> */}
           <Select
             value={chart}
             onChange={(e)=>setChart(e.target.value)}

@@ -11,8 +11,12 @@ import Charts from "./Charts";
 function GitCard({repoName, img, desc, stars, issues, pushedAt, ownerName}) {
 
   const [drop, setDrop] = useState(false);
-  const token = "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";
 
+  // token works as access key to get repo's data like commit, addition, deletion history etc.
+  const token = "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";
+
+
+  // this function will convert the "pushedAt" date (format - 2019-04-24T07:45:14Z)  into humanly redable date (format-Apr 24, 2019, 01:15:14 PM).
   const formatDate = (myDate)=>{
     const date = new Date(myDate);
     const options = { year: 'numeric', month: 'short', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' };
@@ -68,7 +72,8 @@ function GitCard({repoName, img, desc, stars, issues, pushedAt, ownerName}) {
         </CardContent>
       </StyledCard>
 
-      {drop === true ? (<Charts token={token} repoName={repoName}  ownerName={ownerName}/>) : <></>}
+      {/* if drop is true, it means show charts, else not  */}
+      {drop === true ? (<Charts token={token} repoName={repoName}  ownerName={ownerName}/>) : <></>} 
     </div>
   );
 }
