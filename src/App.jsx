@@ -20,7 +20,10 @@ import { getReposFetch } from "./repoState";
 
 function App() {
   // const [repoList, setRepoList] = useState([]);
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(() => {
+    const storedPage = localStorage.getItem("currentPage");
+    return storedPage ? parseInt(storedPage) : 1;
+  });
   // const [totalPages, setTotalPages] = useState(0);
   const totalPages = useSelector(state => Math.ceil(state.repos.repos.total_count / 10));
   console.log("total pages - >", totalPages)
@@ -29,7 +32,9 @@ function App() {
 
   useEffect(()=>{
     dispatch(getReposFetch(page));
+    localStorage.setItem("currentPage", page);
   },[dispatch, page]);
+
 
   console.log("repofetch", repoList);
 
@@ -44,6 +49,7 @@ function App() {
 
   const handlePageChange = (event, value) => {
     setPage(value); // Update current page number
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (

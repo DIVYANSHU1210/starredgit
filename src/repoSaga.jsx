@@ -3,7 +3,7 @@ import { getRepoFailure, getRepoSucces } from './repoState';
 
 function* workGetReposFetch(action){
     try{
-        const repos = yield call(()=> fetch(`https://api.github.com/search/repositories?q=created:%3E2017-10-22&sort=stars&order=desc&page=${action.payload}`));
+        const repos = yield call(()=> fetch(`https://api.github.com/search/repositories?q=created:%3E2017-10-22&sort=stars&order=desc&page=${action.payload}&per_page=10`));
         const formattedRepos = yield repos.json();
         yield put(getRepoSucces(formattedRepos));
     }

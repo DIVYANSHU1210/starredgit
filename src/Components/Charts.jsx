@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Card, CardContent, FormControl, InputLabel, Select, MenuItem } from "@mui/material";
+import { Card, CardContent, FormControl, InputLabel, Select, MenuItem, Pagination } from "@mui/material";
 
 import Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
@@ -8,17 +8,18 @@ import { Octokit } from "@octokit/core";
 
 function Charts({ token, repoName, ownerName }) {
     console.log(token,repoName, ownerName );
+  const [page, setPage] = useState(1);
   const [commitData, setCommitData] = useState([]);
   const [addDelData, setAddDelData] = useState([]);
 
   const [chart, setChart] = useState("commits");
-
+  const pageSize = 4; 
 
   const octokit = new Octokit({
     auth: token,
   });
 
- 
+  
   // Function to fetch commit activity data
   const fetchCommitData = async () => {
     try {
@@ -32,7 +33,7 @@ function Charts({ token, repoName, ownerName }) {
           },
         }
       );
-    //   console.log("commit data", response.data);
+      console.log("commit data", response.data);
       setCommitData(response.data);
     } catch (error) {
       console.error("Error fetching commit activity data:", error);
@@ -51,7 +52,7 @@ function Charts({ token, repoName, ownerName }) {
           },
         }
       );
-    //   console.log(response.data);
+      console.log("ADDdEL DATA - >", response.data);
       setAddDelData(response.data);
     } catch (error) {
       console.error("Error fetching addition-deletion data:", error);
@@ -82,7 +83,7 @@ function Charts({ token, repoName, ownerName }) {
         {
             name: "Commits",
             data: Array.isArray(commitData)
-              ? commitData.map((weekData) => [
+              ? commitData.slice(page-1, page+3).map((weekData) => [
                   weekData.week * 1000, // Convert week to timestamp
                   weekData.total,
                 ])
@@ -106,7 +107,7 @@ function Charts({ token, repoName, ownerName }) {
         {
           data: Array.isArray(addDelData)
             ? addDelData
-                .slice(0, 3)
+                .slice(page-1, page+3)
                 .map(([timestamp, additions, deletions]) => [
                   Highcharts.dateFormat("%b %d, %Y", timestamp * 1000),
                   additions,
@@ -131,7 +132,7 @@ function Charts({ token, repoName, ownerName }) {
         {
           data: Array.isArray(addDelData)
             ? addDelData
-                .slice(0, 3)
+                .slice(page-1, page+3)
                 .map(([timestamp, additions, deletions]) => [
                   Highcharts.dateFormat("%b %d, %Y", timestamp * 1000),
                   deletions*-1,
@@ -142,7 +143,12 @@ function Charts({ token, repoName, ownerName }) {
     },
   };
 
-  
+  const handlePageChange = (event, value) => {
+    setPage(value);
+  };
+
+  const totalItemCount = chart === 'commits' ? commitData.length : addDelData.length;
+    const totalPages = Math.ceil(totalItemCount / pageSize);
 
   return (
     <Card>
@@ -159,6 +165,15 @@ function Charts({ token, repoName, ownerName }) {
           </Select>
         </FormControl>
         <HighchartsReact highcharts={Highcharts} options={options[chart]} />
+        <Pagination
+          count={totalPages}
+          page={page}
+          onChange={handlePageChange}
+          variant="outlined"
+          shape="rounded"
+          size="small"
+          style={{ marginTop: "10px", display: "flex", justifyContent: "center" }}
+        />
       </CardContent>
     </Card>
   );
