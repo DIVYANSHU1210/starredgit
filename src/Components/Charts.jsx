@@ -6,8 +6,7 @@ import HighchartsReact from "highcharts-react-official";
 import { Octokit } from "@octokit/core";
 
 
-function Charts({ token, repoName, ownerName }) {
-    console.log(token,repoName, ownerName );
+function Charts({ repoName, ownerName }) {
 
   // State variables for data, page, and selected chart
   const [page, setPage] = useState(1);
@@ -17,11 +16,8 @@ function Charts({ token, repoName, ownerName }) {
 
   const pageSize = 4; 
 
-  // Create Octokit instance with authentication
-  const octokit = new Octokit({
-    auth: token,
-  });
-
+  // Create Octokit instance without authentication (for public repositories we actually don't require a personal access token)
+  const octokit = new Octokit();
 
   // Function to fetch commit activity data
   const fetchCommitData = async () => {

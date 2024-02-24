@@ -12,9 +12,6 @@ function GitCard({repoName, img, desc, stars, issues, pushedAt, ownerName}) {
 
   const [drop, setDrop] = useState(false);
 
-  // token works as access key to get repo's data like commit, addition, deletion history etc.
-  const token = "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";
-
 
   // this function will convert the "pushedAt" date (format - 2019-04-24T07:45:14Z)  into humanly redable date (format-Apr 24, 2019, 01:15:14 PM).
   const formatDate = (myDate)=>{
@@ -73,7 +70,7 @@ function GitCard({repoName, img, desc, stars, issues, pushedAt, ownerName}) {
       </StyledCard>
 
       {/* if drop is true, it means show charts, else not  */}
-      {drop === true ? (<Charts token={token} repoName={repoName}  ownerName={ownerName}/>) : <></>} 
+      {drop === true ? (<Charts repoName={repoName}  ownerName={ownerName}/>) : <></>} 
     </div>
   );
 }
