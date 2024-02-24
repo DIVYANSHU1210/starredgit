@@ -13,7 +13,7 @@ function GitCard({repoName, img, desc, stars, issues, pushedAt, ownerName}) {
   const [drop, setDrop] = useState(false);
 
   // token works as access key to get repo's data like commit, addition, deletion history etc.
-  const token = "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";
+  const token = "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";
 
 
   // this function will convert the "pushedAt" date (format - 2019-04-24T07:45:14Z)  into humanly redable date (format-Apr 24, 2019, 01:15:14 PM).
