@@ -4,6 +4,17 @@
 
 This repository contains the source code for a web application that lists the most starred GitHub repositories created within a specified timeframe. It also provides a drill-down feature to display commit activity graphs for individual repositories.
 
+## ScreenShots
+
+![Screenshot 2024-02-24 104740](https://github.com/DIVYANSHU1210/starredgit/assets/84267089/c959d29b-823b-439c-9b71-7b5ed54ff530)
+
+![Screenshot 2024-02-24 104638](https://github.com/DIVYANSHU1210/starredgit/assets/84267089/37c759f6-233c-49be-a653-73000f34d21a)
+
+![Screenshot 2024-02-24 104656](https://github.com/DIVYANSHU1210/starredgit/assets/84267089/e524b879-2946-42d7-930b-1b0132e2cdd2)
+
+![Screenshot 2024-02-24 104734](https://github.com/DIVYANSHU1210/starredgit/assets/84267089/d169bcd7-38c1-4922-b36f-0d4257577ef8)
+
+
 ## Features
 
 - Lists the most starred GitHub repositories created in the last 1 week, 2 weeks, or 1 month.
