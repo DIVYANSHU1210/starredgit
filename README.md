@@ -50,6 +50,13 @@ This repository contains the source code for a web application that lists the mo
 - Scroll through the list of repositories and click on any repository to view its commit activity graph.
 - Use the pagination controls to navigate between pages of repositories.
 
+## deployed Link
+
+- [Upon running the development server, open your web browser and navigate to `http://localhost:3000` to access the application.](https://starredgit-raxhg5eh6-divyanshus-projects-92937caa.vercel.app/)
+- [when i deployed the project the git token stops working.I tried multiple times to update it but the moment project deploys, token expires. So you need to give new token at main/src/Components/GitCard to see the charts.]
+
+
+
 ## Contributors
 
 - https://github.com/DIVYANSHU1210
