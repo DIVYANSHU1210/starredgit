@@ -11,7 +11,7 @@ import Charts from "./Charts";
 function GitCard({repoName, img, desc, stars, issues, pushedAt, ownerName}) {
 
   const [drop, setDrop] = useState(false);
-  const token = "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";
+  const token = "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";
 
   const formatDate = (myDate)=>{
     const date = new Date(myDate);
