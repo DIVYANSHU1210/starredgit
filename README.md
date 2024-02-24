@@ -1,3 +1,51 @@
+# StarredGit Project
+
+## Description
+
+This repository contains the source code for a web application that lists the most starred GitHub repositories created within a specified timeframe. It also provides a drill-down feature to display commit activity graphs for individual repositories.
+
+## Features
+
+- Lists the most starred GitHub repositories created in the last 1 week, 2 weeks, or 1 month.
+- Allows users to specify the period for searching the most starred repositories.
+- Displays repository details such as name, description, star count, issue count, and owner information.
+- Supports pagination for browsing through the list of repositories.
+- Provides drill-down functionality to visualize commit activity graphs for individual repositories.
+- Supports selection of different metrics (commits, additions, deletions) for plotting.
+- Displays total number of changes across all contributors per week.
+- Includes a multiline plot showing each contributor's total changes per week.
+- Allows toggling of contributors in the legend for better visualization.
+- Provides human-readable labels for the x-axis (weeks) and y-axis (counts).
+
+## Technologies Used
+
+- React (with hooks)
+- Redux (with Redux Toolkit)
+- Redux Saga
+- Material-UI (MUI)
+- Highcharts
+
+## Installation
+
+1. Clone the repository: `git clone https://github.com/your-username/repository-name.git`
+2. Navigate to the project directory: `cd repository-name`
+3. Install dependencies: `npm install`
+4. Run the development server: `npm start`
+
+## Usage
+
+- Upon running the development server, open your web browser and navigate to `http://localhost:3000` to access the application.
+- Use the dropdown menu to select the desired timeframe for listing the most starred repositories.
+- Scroll through the list of repositories and click on any repository to view its commit activity graph.
+- Use the pagination controls to navigate between pages of repositories.
+
+## Contributors
+
+- https://github.com/DIVYANSHU1210
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
