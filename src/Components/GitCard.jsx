@@ -11,14 +11,25 @@ import Charts from "./Charts";
 function GitCard({repoName, img, desc, stars, issues, pushedAt, ownerName}) {
 
   const [drop, setDrop] = useState(false);
-  const token = "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";
+  const token = "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";
+
+  const formatDate = (myDate)=>{
+    const date = new Date(myDate);
+    const options = { year: 'numeric', month: 'short', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' };
+    const formattedDate = date.toLocaleDateString('en-US', options);
+    return formattedDate;
+  }
 
   return (
     <div>
       <StyledCard>
-        <StyledCardMedia
+        <CardMedia
           image={img}
           title="profileImage"
+          sx = {{minWidth: "150px",
+          minHeight: "150px",
+          margin: "1rem",
+          borderRadius: "50%"}}
         />
         <CardContent>
           <StyledFlex>
@@ -40,7 +51,7 @@ function GitCard({repoName, img, desc, stars, issues, pushedAt, ownerName}) {
                   variant="p"
                   color="textprimary"
                 >
-                  Last pushed {pushedAt} by {ownerName}
+                  Last pushed {formatDate(pushedAt)} by {ownerName}
                 </Typography>
               </StyledFlex>
             </div>

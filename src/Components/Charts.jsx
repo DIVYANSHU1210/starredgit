@@ -32,7 +32,7 @@ function Charts({ token, repoName, ownerName }) {
           },
         }
       );
-      console.log("commit data", response.data);
+    //   console.log("commit data", response.data);
       setCommitData(response.data);
     } catch (error) {
       console.error("Error fetching commit activity data:", error);
@@ -58,43 +58,6 @@ function Charts({ token, repoName, ownerName }) {
     }
   };
 
-//   console.log("is array", Array.isArray(commitData));
-//   console.log("is array", Array.isArray(addDelData));
-
-//   const seriesDataCommit = [1, 8, 3, 5, 5];
-
-//   const seriesDataAdd = Array.isArray(addDelData)
-//     ? addDelData
-//         .slice(0, 3)
-//         .map(([timestamp, additions, deletions]) => [
-//           timestamp * 1000,
-//           additions,
-//         ])
-//     : [];
-//   const seriesDataDel = Array.isArray(addDelData)
-//     ? addDelData
-//         .slice(0, 3)
-//         .map(([timestamp, additions, deletions]) => [
-//           timestamp * 1000,
-//           deletions,
-//         ])
-//     : [];
-
-  // let seriesData = [];
-  // if (Array.isArray(commitData)) {
-  //   commitData.forEach((weekData) => {
-  //     weekData.weeks.forEach((week, index) => {
-  //       // Calculate the timestamp for the start of the week
-  //       const weekStartTimestamp = weekData.week * 1000 + (index * 7 * 24 * 60 * 60 * 1000); // Adding days to timestamp
-
-  //       // Push an array containing [timestamp, total_commits] to the series data
-  //       seriesData.push([weekStartTimestamp, week.total]);
-  //     });
-  //   });
-  // } else {
-  //   // Handle the case when commitData is not an array
-  //   console.error("commitData is not an array");
-  // }
 
 
   useEffect(() => {
@@ -107,14 +70,23 @@ function Charts({ token, repoName, ownerName }) {
       title: {
         text: "Total Commits",
       },
+      xAxis: {
+        type: 'datetime',
+        labels: {
+          formatter: function () {
+            return Highcharts.dateFormat("%b %d, %Y", this.value); // Format x-axis labels
+          },
+        },
+      },
       series: [
         {
-          data: Array.isArray(commitData)
-            ? addDelData.slice(0,3).map(([timestamp, additions, deletions]) => [
-                timestamp * 1000,
-                deletions,
-              ])
-            : [],
+            name: "Commits",
+            data: Array.isArray(commitData)
+              ? commitData.map((weekData) => [
+                  weekData.week * 1000, // Convert week to timestamp
+                  weekData.total,
+                ])
+              : [],
         },
       ],
     },
@@ -122,13 +94,21 @@ function Charts({ token, repoName, ownerName }) {
       title: {
         text: "Total Additions",
       },
+      xAxis: {
+        type: 'datetime',
+        labels: {
+          formatter: function () {
+            return Highcharts.dateFormat("%b %d, %Y", this.value); // Format x-axis labels
+          },
+        },
+      },
       series: [
         {
           data: Array.isArray(addDelData)
             ? addDelData
                 .slice(0, 3)
                 .map(([timestamp, additions, deletions]) => [
-                  timestamp * 1000,
+                  Highcharts.dateFormat("%b %d, %Y", timestamp * 1000),
                   additions,
                 ])
             : [],
@@ -139,13 +119,21 @@ function Charts({ token, repoName, ownerName }) {
       title: {
         text: "Total Deletions",
       },
+      xAxis: {
+        type: 'datetime',
+        labels: {
+          formatter: function () {
+            return Highcharts.dateFormat("%b %d, %Y", this.value); // Format x-axis labels
+          },
+        },
+      },
       series: [
         {
           data: Array.isArray(addDelData)
             ? addDelData
                 .slice(0, 3)
                 .map(([timestamp, additions, deletions]) => [
-                  timestamp * 1000,
+                  Highcharts.dateFormat("%b %d, %Y", timestamp * 1000),
                   deletions*-1,
                 ])
             : [],
